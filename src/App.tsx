@@ -1,3 +1,8 @@
+import { useWindowSize } from '@/behaviors'
+import Maze from '@/components/Maze'
+
 export default function App() {
-  return <div>Soon...</div>
+  const [screen] = useWindowSize()
+
+  return <Maze size={screen()} />
 }
