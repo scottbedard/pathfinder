@@ -4,6 +4,7 @@
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@vitest/coverage-v8": "^1.6.0",
     "rollup": "^4.17.2",
     "rollup-plugin-delete": "^2.0.0",
     "tslib": "^2.6.2",
