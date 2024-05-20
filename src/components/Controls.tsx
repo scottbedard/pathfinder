@@ -12,8 +12,8 @@ export function Controls(props: Props) {
     const rows = Math.floor(value * 9 / 16)
     const cols = value
 
-    props.onColsChange(cols)
-    props.onRowsChange(rows)
+    props.onColsChange(Math.max(cols, 3))
+    props.onRowsChange(Math.max(rows, 3))
   }
 
   return <div class="bg-white drop-shadow-lg grid gap-2 fixed m-2 px-3 py-2 rounded-lg text-sm w-40">
