@@ -10,7 +10,7 @@ type Props = {
 
 let canvas: HTMLCanvasElement
 
-export default function Maze(props: Props) {
+export function Maze(props: Props) {
   let ctx: CanvasRenderingContext2D | null = null
 
   const render = () => {
@@ -18,20 +18,21 @@ export default function Maze(props: Props) {
       return
     }
   
-    const stroke = 5
+    const stroke = 1
 
     const [width, height]: Vec<2> = [
       props.screen[0] / props.grid.length,
       props.screen[1] / props.grid[0].length,
     ]
 
+    ctx.clearRect(0, 0, props.screen[0], props.screen[1])
+
     for (let col = 0; col < props.grid.length; col++) {
       for (let row = 0; row < props.grid[col].length; row++) {
-        const x = col * width + col
-        const y = row * height + row
+        const x = col * width
+        const y = row * height
         ctx.beginPath()
         ctx.rect(x, y, width - stroke, height - stroke)
-        ctx.strokeStyle = 'white'
         ctx.fillStyle = '#cbd5e1'
         ctx.fill()
       }
