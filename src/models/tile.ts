@@ -1,4 +1,6 @@
 export class Tile {
+  hover: boolean = false
+
   traversable: boolean
 
   x: number
@@ -11,5 +13,13 @@ export class Tile {
     this.y = y
 
     this.traversable = traversable
+  }
+
+  fill() {
+    if (this.hover) {
+      return '#3b82f6'
+    }
+
+    return '#cbd5e1'
   }
 }

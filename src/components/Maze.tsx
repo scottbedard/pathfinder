@@ -1,9 +1,10 @@
 import { onMount } from 'solid-js'
+import { Tile } from '@/models'
 import { useRequestAnimationFrame } from '@/behaviors'
 import { Vec } from '@/types'
 
 type Props = {
-  grid: unknown[][]
+  grid: Tile[][]
   onMouseMove: (evt: MouseEvent) => void
   screen: Vec<2>
 }
@@ -29,11 +30,12 @@ export function Maze(props: Props) {
 
     for (let col = 0; col < props.grid.length; col++) {
       for (let row = 0; row < props.grid[col].length; row++) {
+        const tile = props.grid[col][row]
         const x = col * width
         const y = row * height
         ctx.beginPath()
         ctx.rect(x, y, width - stroke, height - stroke)
-        ctx.fillStyle = '#cbd5e1'
+        ctx.fillStyle = tile.fill()
         ctx.fill()
       }
     }
