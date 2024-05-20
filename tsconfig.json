@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "dist",
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "esnext",
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    "sandbox",
+    "scripts",
+  ],
+  "include": [
+    "rollup.config.mjs",
+    "src/**/*.ts",
+  ],
+}

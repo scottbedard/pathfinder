@@ -1,0 +1,30 @@
+{
+  "author": "Scott Bedard",
+  "description": "A* path finding algorithm",
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "rollup": "^4.17.2",
+    "rollup-plugin-delete": "^2.0.0",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.6.0"
+  },
+  "homepage": "https://github.com/scottbedard/a-star#readme",
+  "keywords": [],
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs.js",
+  "name": "@bedard/h",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scottbedard/a-star.git"
+  },
+  "scripts": {
+    "build": "tsc && rollup -c",
+    "test": "vitest"
+  },
+  "type": "module",
+  "unpkg": "dist/index.iife.js",
+  "version": "0.1.0"
+}
