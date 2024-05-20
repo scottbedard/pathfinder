@@ -6,27 +6,25 @@ type Props = {
 }
 
 export function Controls(props: Props) {
+  const onSizeInput = (e: Event) => {
+    const target = e.target as HTMLInputElement
+    const value = Number(target.value)
+    const rows = Math.floor(value * 9 / 16)
+    const cols = value
+
+    props.onColsChange(cols)
+    props.onRowsChange(rows)
+  }
+
   return <div class="bg-white drop-shadow-lg grid gap-2 fixed m-2 px-3 py-2 rounded-lg text-sm w-40">
     <div>
-      <div>Rows &bull; {props.rows}</div>
+      <div>Size &bull; <span class="tabular-nums">{props.cols} &times; {props.rows}</span></div>
       <input
         class="w-full"
-        max="50"
+        max="300"
         min="1"
-        onInput={e => props.onRowsChange(Number(e.target.value))}
-        type="range"
-        value={props.rows} />
-    </div>
-
-    <div>
-      <div>Columns &bull; {props.cols}</div>
-      <input
-        class="w-full"
-        max="50"
-        min="1"
-        onInput={e => props.onColsChange(Number(e.target.value))}
-        type="range"
-        value={props.cols} />
+        onInput={onSizeInput}
+        type="range" />
     </div>
   </div>
 }

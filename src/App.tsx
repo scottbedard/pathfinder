@@ -1,5 +1,5 @@
-import { createEffect, createSignal } from 'solid-js'
 import { Controls, Maze } from '@/components'
+import { createEffect, createSignal } from 'solid-js'
 import { Tile } from '@/models'
 import { useWindowSize } from '@/behaviors'
 import { Vec } from '@/types'
@@ -7,30 +7,19 @@ import { Vec } from '@/types'
 export default function App() {
   const [cols, setCols] = createSignal(25)
   const [grid, setGrid] = createSignal<Tile[][]>([])
-  const [mouse, setMouse] = createSignal<Vec<2>>([0, 0])
+  const [mouse, setMouse] = createSignal<Vec<2>>([-1, -1])
   const [rows, setRows] = createSignal(25)
   const [screen] = useWindowSize()
 
   let i = 0
 
-  const updateGrid = (c: number, r: number) => {
-    const matrix: Tile[][] = []
-  
-    for (let x = 0; x < c; x++) {
-      matrix.push([])
-
-      for (let y = 0; y < r; y++) {
-        matrix[x].push(new Tile(x, y, false))
-      }
-    }
-
-    console.log('GRID UPDATE', i++)
-    
-    setGrid(matrix)
+  const update = (x: number, y: number) => {
+    console.log('GRID UPDATE:', i++, { x, y })
+    setGrid(Tile.matrix(x, y))
   }
 
   createEffect(() => {
-    updateGrid(cols(), rows())
+    update(cols(), rows())
   })
 
   createEffect(() => {

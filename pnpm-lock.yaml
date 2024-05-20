@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      labyrinthos:
+        specifier: ^1.1.2
+        version: 1.1.2
       solid-js:
         specifier: ^1.8.15
         version: 1.8.17
@@ -692,6 +695,9 @@ packages:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
+
+  labyrinthos@1.1.2:
+    resolution: {integrity: sha512-wpCA8iKpsQswymVQdn2pU9H3kOltaf9yldwa+ZWS/G+0nkiIAJU/BG5LsXRhCWyw8WQXZQplHL/B0zUPmDNnhQ==}
 
   lilconfig@2.1.0:
     resolution: {integrity: sha512-utWOt/GHzuUxnLKxB6dk81RoOeoNeHgbrXiuGk4yyF5qlRz+iIVWu56E2fqGHFrXz0QNUhLB/8nKqvRH66JKGQ==}
@@ -1622,6 +1628,8 @@ snapshots:
   jsesc@2.5.2: {}
 
   json5@2.2.3: {}
+
+  labyrinthos@1.1.2: {}
 
   lilconfig@2.1.0: {}
 

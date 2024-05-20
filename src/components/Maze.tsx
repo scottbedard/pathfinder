@@ -19,7 +19,7 @@ export function Maze(props: Props) {
       return
     }
   
-    const stroke = 1
+    const stroke = -1
 
     const [width, height]: Vec<2> = [
       props.screen[0] / props.grid.length,
