@@ -13,7 +13,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "@bedard/a-star": ["pkg/index"],
+      "@bedard/a-star": ["../src/index"],
       "@/*": ["src/*"],
     },
     "resolveJsonModule": true,
@@ -22,9 +22,6 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
   },
-  "include": [
-    "package",
-    "src",
-  ],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
