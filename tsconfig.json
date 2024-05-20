@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowImportingTsExtensions": true,
-    "baseUrl": "src",
+    "baseUrl": ".",
     "isolatedModules": true,
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
@@ -13,7 +13,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "paths": {
-      "@/*": ["*"],
+      "@bedard/a-star": ["pkg/index"],
+      "@/*": ["src/*"],
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
@@ -21,6 +22,9 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
   },
-  "include": ["src"],
+  "include": [
+    "package",
+    "src",
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
