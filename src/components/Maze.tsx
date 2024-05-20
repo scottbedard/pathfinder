@@ -1,35 +1,49 @@
 import { onMount } from 'solid-js'
+import { random, throttle } from 'lodash-es'
+import { useRequestAnimationFrame } from '@/behaviors'
 import { Vec } from '@/types'
 
 type Props = {
+  grid: unknown[][]
   screen: Vec<2>
 }
 
 let canvas: HTMLCanvasElement
 
 export default function Maze(props: Props) {
+  let ctx: CanvasRenderingContext2D
 
-  const dimensions = () => [
-    Math.floor(props.screen[0] / 20),
-    Math.floor(props.screen[1] / 20),
-  ]
+  const render = throttle(() => {
+    const [width, height]: Vec<2> = [
+      props.screen[0] / props.grid.length,
+      props.screen[1] / props.grid[0].length,
+    ]
 
-  onMount(() => {
-    const ctx = canvas.getContext('2d');
+    props.grid.forEach((row, i) => {
+      row.forEach((_col, j) => {
+        ctx.beginPath()
+        ctx.strokeStyle = 'red'
+        ctx.fillStyle = `rgba(${random(255)}, ${random(255)}, ${random(255)})`
+        ctx.rect(i * width + i, j * height + j, width, height)
+        ctx.fill()
+        ctx.strokeRect(i * width + i, j * height + j, width, height)
+      })
+    })
+  }, 1000)
 
-    if (!ctx) {
-      return
-    }
+  const onMousemove = () => {
+    console.log('mousemove')
+  }
 
-    // ctx.fillRect(25, 25, 100, 100);
-    // ctx.clearRect(45, 45, 60, 60);
-    // ctx.strokeRect(50, 50, 50, 50);
-  })
+  onMount(() => ctx = canvas.getContext('2d')!)
 
-  return <div>
-    <canvas
-      class="border-4 border-dashed border-green-500 h-full w-full"
-      ref={canvas}
-    />
-  </div>
+  useRequestAnimationFrame(render, { autostart: true })
+
+  return <canvas
+    class="h-screen w-screen"
+    ref={canvas}
+    height={props.screen[1]}
+    width={props.screen[0]}
+    onMouseMove={onMousemove}
+  />
 }
