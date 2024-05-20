@@ -5,10 +5,10 @@ import { useWindowSize } from '@/behaviors'
 import { Vec } from '@/types'
 
 export default function App() {
-  const [cols, setCols] = createSignal(25)
+  const [cols, setCols] = createSignal(90)
   const [grid, setGrid] = createSignal<Tile[][]>([])
   const [mouse, setMouse] = createSignal<Vec<2>>([-1, -1])
-  const [rows, setRows] = createSignal(25)
+  const [rows, setRows] = createSignal(50)
   const [screen] = useWindowSize()
 
   let i = 0
