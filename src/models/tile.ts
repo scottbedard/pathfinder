@@ -1,7 +1,10 @@
+import { range } from 'lodash-es'
 import { Vec } from '@/types'
 import labyrinthos from 'labyrinthos'
 
 export class Tile {
+  center: boolean = false
+
   hover: boolean = false
 
   traversable: boolean = true
@@ -19,6 +22,10 @@ export class Tile {
    * Grid fill color
    */
   fill() {
+    if (this.center) {
+      return '#f87171'
+    }
+
     if (this.hover && this.traversable) {
       return '#3b82f6'
     }
@@ -48,8 +55,6 @@ export class Tile {
 
     Tile.populate(matrix)
 
-    console.log(matrix)
-
     return matrix
   }
 
@@ -68,12 +73,32 @@ export class Tile {
   
     maze.fill(1)
   
-    labyrinthos.mazes.BinaryTree(maze, {})
+    labyrinthos.mazes.GrowingTree(maze, {})
 
     maze.data.forEach((value: number, i: number) => {
       const x = i % width
       const y = Math.floor(i / width)
       matrix[x][y].traversable = value === 1
     })
+
+    // open and highlight the center
+    const [centerX, centerY] = [Math.floor(width / 2), Math.floor(height / 2)]
+
+    if (centerX < 1 || centerY < 1) {
+      return
+    }
+
+    matrix[centerX - 1][centerY - 1].traversable = true
+    matrix[centerX][centerY - 1].traversable = true
+    matrix[centerX + 1][centerY - 1].traversable = true
+
+    matrix[centerX - 1][centerY].traversable = true
+    matrix[centerX][centerY].center = true
+    matrix[centerX][centerY].traversable = true
+    matrix[centerX + 1][centerY].traversable = true
+
+    matrix[centerX - 1][centerY + 1].traversable = true
+    matrix[centerX][centerY + 1].traversable = true
+    matrix[centerX + 1][centerY + 1].traversable = true
   }
 }
