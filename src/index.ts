@@ -1,17 +1,20 @@
-export type Cell = {
-  col: number
+export type Coord = {
+  col: number,
+  row: number,
+}
+
+export type Cell = Coord & {
   g: number
   h: number
-  parent: Cell | null
-  row: number
   obstructed: boolean
+  parent: Cell | null
 }
 
 export type Options = {
   data: unknown[][]
-  from: { row: number, col: number }
-  heuristic?: (coord: { row: number, col: number }) => number
-  to: { row: number, col: number }
+  from: Coord
+  heuristic?: (current: Coord, next: Coord) => number // @todo: manhattan, euclidean, taxicab, chebyshev
+  to: Coord
 }
 
 /**
@@ -87,14 +90,21 @@ export function findPath(opts: Options) {
     
     for (const neighbor of neighbors) {
       const inSearch = toSearch.includes(neighbor)
-      const costToNeighbor = current.g + 0 // distance(current.col, current.row, neighbor.col, neighbor.row)
+      const costToNeighbor = current.g + heuristic(
+        { row: current.row, col: current.col },
+        { row: neighbor.row, col: neighbor.col },
+      )
 
       if (!inSearch || costToNeighbor < neighbor.g) {
         neighbor.g = costToNeighbor
         neighbor.parent = current
 
         if (!inSearch) {
-          neighbor.h = 0 // distance(neighbor.col, neighbor.row, toCol, toRow)
+          neighbor.h = heuristic(
+            { col: current.col, row: current.row },
+            { col: neighbor.col, row: neighbor.row },
+          )
+
           toSearch.push(neighbor)
         }
       }
@@ -104,88 +114,3 @@ export function findPath(opts: Options) {
   // no path found
   return null
 }
-// export function findPath(opts: Options) {
-//   const heuristic = opts.heuristic || (() => 0)
-
-//   // create a matrix of cells from input data
-//   const matrix: Cell[][] = opts.data.map((cols, row) =>
-//     cols.map((obstructed, col) => ({
-//       col,
-//       g: Infinity,
-//       h: 0, // heuristic({ row, col }),
-//       parent: null,
-//       row,
-//       obstructed: !!obstructed,
-//     })
-//   ))
-
-//   // start searching from starting position
-//   const toSearch: Cell[] = [matrix[opts.from.row]?.[opts.from.col]]
-
-//   console.log({ opts, toSearch, matrix })
-
-//   // positions that have been processed
-//   const processed: Cell[] = []
-
-//   // begin finding shortest path
-//   while (toSearch.length) {
-//     let current = toSearch[0]
-
-//     for (const next of toSearch) {
-//       const nextF = next.g + next.h
-//       const currentF = current.g + current.h
-
-//       if (nextF < currentF || nextF === currentF && next.h < current.h) {
-//         current = next
-//       }
-//     }
-
-//     toSearch.splice(toSearch.indexOf(current), 1)
-//     processed.push(current)
-
-//     if (current.col === opts.to.col && current.row === opts.to.row) {
-//       const path = []
-      
-//       while (current.parent) {
-//         path.unshift(current)
-//         current = current.parent
-//       }
-
-//       return path
-//     }
-    
-//     const neighbors = [
-//       matrix[current.row - 1]?.[current.col - 1],
-//       matrix[current.row - 1]?.[current.col],
-//       matrix[current.row - 1]?.[current.col + 1],
-//       matrix[current.row]?.[current.col - 1],
-//       matrix[current.row]?.[current.col + 1],
-//       matrix[current.row + 1]?.[current.col - 1],
-//       matrix[current.row + 1]?.[current.col],
-//       matrix[current.row + 1]?.[current.col + 1],
-//     ].filter(Boolean)
-    
-//     for (const neighbor of neighbors) {
-//       const inSearch = toSearch.includes(neighbor)
-//       const costToNeighbor = current.g + heuristic(neighbor)
-
-//       if (!inSearch || costToNeighbor < neighbor.g) {
-//         neighbor.g = costToNeighbor
-//         neighbor.parent = current
-
-//         if (!inSearch) {
-//           neighbor.h = 0
-//           // neighbor.h = Math.sqrt(
-//           //   Math.pow(neighbor.col - opts.to.col, 2) + 
-//           //   Math.pow(neighbor.row - opts.to.row, 2)
-//           // )
-
-//           toSearch.push(neighbor)
-//         }
-//       }
-//     }
-//   }
-  
-//   // no path found
-//   return null
-// }
