@@ -1,5 +1,3 @@
-import { range } from 'lodash-es'
-import { Vec } from '@/types'
 import labyrinthos from 'labyrinthos'
 
 export class Tile {
@@ -42,9 +40,7 @@ export class Tile {
    */
   static matrix(cols: number, rows: number): Tile[][] {
     const matrix: Tile[][] = []
-    // const _cols = cols % 2 === 0 ? cols + 1 : cols
-    // const _rows = rows % 2 === 0 ? rows + 1 : rows
-  
+
     for (let x = 0; x < cols; x++) {
       matrix.push([])
 
