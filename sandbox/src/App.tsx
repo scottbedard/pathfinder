@@ -5,22 +5,14 @@ import { Tile } from '@/models'
 import { useWindowSize } from '@/behaviors'
 
 export default function App() {
-  const [cols, setCols] = createSignal(16)
+  const [cols, setCols] = createSignal(160)
   const [grid, setGrid] = createSignal<Tile[][]>([])
   const [mouse, setMouse] = createSignal<{ x: number, y: number }>({ x: -1, y: -1 })
-  const [rows, setRows] = createSignal(9)
+  const [rows, setRows] = createSignal(90)
   const [screen] = useWindowSize()
-
-  let i = 0
 
   const update = (dimensions: { rows: number, cols: number }) => {
     setGrid(Tile.matrix(dimensions))
-
-    console.log('GRID UPDATE', {
-      count: i++,
-      dimensions,
-      binary: grid().map(row => row.map(cell => cell.obstacle)),
-    })
   }
 
   // track the current hover position
@@ -39,9 +31,10 @@ export default function App() {
   // find a new solution when the hovered tile changes
   createEffect(() => {
     const { row, col } = hover()
+    const flattened = grid().flat()
 
     // reset all hover states to false
-    grid().flat().forEach(tile => {
+    flattened.forEach(tile => {
       tile.hover = false
       tile.solution = false
     })
@@ -50,12 +43,11 @@ export default function App() {
     if (row > -1 && col > -1) {
       grid()[row][col].hover = true
 
-      const center = grid().flat().find(cell => cell.center)
+      const center = flattened.find(cell => cell.center)
 
       if (center) {
-        console.log(center)
         findPath({
-          data: grid().map(row => row.map(cell => cell.obstacle)),
+          data: grid().map(row => row.map(t => t.obstacle)),
           from: { row, col },
           to: { row: center.y, col: center.x },
         })?.forEach((step: { row: number, col: number }) => {
@@ -65,22 +57,15 @@ export default function App() {
     }
   })
 
-  // draw a new grid when the dimensions change
-  createEffect(() => update({ rows: rows(), cols: cols() }))
-
+  // track mouse position
   const onMouseMove = (evt: MouseEvent) => setMouse({ x: evt.clientX, y: evt.clientY })
   
-  // draw the initial grid and path
+  // draw the initial grid and path, and redraw when dimensions change
   update({ rows: rows(), cols: cols() })
 
-  return <div>
-    {/* <pre class="bg-white bottom-0 p-3 pointer-events-none fixed text-sm">{ JSON.stringify({
-      rows: rows(),
-      cols: cols(),
-      mouse: mouse().join(' x '),
-      screen: screen().join(' x '),
-    }, null, 2)}</pre> */}
+  createEffect(() => update({ rows: rows(), cols: cols() }))
 
+  return <div>
     <Controls
       cols={cols()}
       onColsChange={setCols}

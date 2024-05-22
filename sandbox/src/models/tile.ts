@@ -23,7 +23,7 @@ export class Tile {
    */
   fill() {
     if (this.center) {
-      return 'red'
+      return '#f43f5e'
     }
 
     if (this.obstacle) {
@@ -31,14 +31,14 @@ export class Tile {
     }
 
     if (this.hover) {
-      return 'blue'
+      return '#10b981'
     }
 
     if (this.solution) {
-      return 'pink'
+      return '#eab308'
     }
 
-    return 'green'
+    return '#d4d4d4'
   }
 
   /**

@@ -19,7 +19,7 @@ export function Maze(props: Props) {
       return
     }
   
-    const stroke = 1
+    const stroke = -1
 
     const height = props.screen.height / props.grid.length
     const width = props.screen.width / props.grid[0].length
