@@ -1,10 +1,18 @@
 # `@bedard/pathfinder`
 
+[![Build status](https://img.shields.io/github/actions/workflow/status/scottbedard/pathfinder/test.yml?branch=main&style=flat-square)](https://github.com/scottbedard/pathfinder/actions)
+[![Codecov](https://img.shields.io/codecov/c/github/scottbedard/pathfinder?token=3Zz8qEA57I&style=flat-square)](https://codecov.io/gh/scottbedard/pathfinder)
+[![NPM](https://img.shields.io/npm/v/%40bedard%2Fpathfinder?style=flat-square)](https://www.npmjs.com/package/@bedard/pathfinder)
+[![Bundle size](https://img.shields.io/bundlephobia/minzip/@bedard/pathfinder?label=gzipped&style=flat-square)](https://bundlephobia.com/result?p=@bedard/pathfinder)
+[![License](https://img.shields.io/github/license/scottbedard/pathfinder?color=blue&style=flat-square)](https://github.com/scottbedard/pathfinder/blob/main/LICENSE)
+
 This project is a simple javascript implementation of the A* search algorithm. It was mainly built to get my feet wet with Solid.js.
 
 [View sandbox &rarr;](https://pathfinder.scottbedard.net)
 
-[<img src="https://github.com/scottbedard/maze/assets/7980426/e4c3b0d8-9b4a-4ac1-a027-715270028f99" />]([https://example.org](https://pathfinder.scottbedard.net))
+<a href="https://pathfinder.scottbedard.net">
+  <img src="https://github.com/scottbedard/maze/assets/7980426/e4c3b0d8-9b4a-4ac1-a027-715270028f99" />
+</a>
 
 ## Basic usage
 
