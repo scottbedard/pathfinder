@@ -21,7 +21,7 @@ export default defineConfig({
     {
       file: pkg.unpkg,
       format: 'iife',
-      name: 'h',
+      name: 'pathfinder',
       plugins: [terser()],
       sourcemap: true,
     },
