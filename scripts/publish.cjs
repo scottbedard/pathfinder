@@ -10,7 +10,7 @@ async function cli() {
 
   fs.writeFileSync(indexPath, src)
 
-  exec('npm run build && npm publish')
+  exec('npm run build && npm publish --access public')
 }
 
 if (require.main === module) {
