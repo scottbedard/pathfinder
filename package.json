@@ -11,15 +11,15 @@
     "typescript": "^5.4.5",
     "vitest": "^1.6.0"
   },
-  "homepage": "https://github.com/scottbedard/a-star#readme",
+  "homepage": "https://github.com/scottbedard/pathfinder#readme",
   "keywords": [],
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs.js",
-  "name": "@bedard/h",
+  "name": "@bedard/pathfinder",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/scottbedard/a-star.git"
+    "url": "git+https://github.com/scottbedard/pathfinder.git"
   },
   "scripts": {
     "build": "tsc && rollup -c",

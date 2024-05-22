@@ -1,6 +1,6 @@
 import { Controls, Maze } from '@/components'
 import { createEffect, createMemo, createSignal } from 'solid-js'
-import { euclidean, findPath } from '@bedard/a-star'
+import { euclidean, findPath } from '@bedard/pathfinder'
 import { Tile } from '@/models'
 import { useWindowSize } from '@/behaviors'
 

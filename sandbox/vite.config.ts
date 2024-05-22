@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [solid()],
   resolve: {
     alias: {
-      '@bedard/a-star': path.resolve(__dirname, '../src'),
+      '@bedard/pathfinder': path.resolve(__dirname, '../src'),
       '@': path.resolve(__dirname, 'src'),
     },
   },
