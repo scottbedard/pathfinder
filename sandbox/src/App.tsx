@@ -10,6 +10,7 @@ export default function App() {
   const [mouse, setMouse] = createSignal<{ x: number, y: number }>({ x: -1, y: -1 })
   const [rows, setRows] = createSignal(Math.round(cols() * (9 / 16)))
   const [screen] = useWindowSize()
+  const [solution, setSolution] = createSignal(0)
 
   const update = (dimensions: { rows: number, cols: number }) => {
     setGrid(Tile.matrix(dimensions))
@@ -61,6 +62,10 @@ export default function App() {
         })?.forEach((step: { row: number, col: number }) => {
           grid()[step.row][step.col].solution = true
         })
+
+        setSolution(grid().flat().filter(t => t.solution).length)
+      } else {
+        setSolution(0)
       }
     }
   })
@@ -78,7 +83,8 @@ export default function App() {
       cols={cols()}
       onColsChange={setCols}
       onRowsChange={setRows}
-      rows={rows()} />
+      rows={rows()}
+      solution={solution()} />
 
     <Maze
       grid={grid()}

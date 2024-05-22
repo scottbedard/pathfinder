@@ -1,7 +1,6 @@
 import { onMount } from 'solid-js'
 import { Tile } from '@/models'
 import { useRequestAnimationFrame } from '@/behaviors'
-import { Vec } from '@/types'
 
 type Props = {
   grid: Tile[][]
