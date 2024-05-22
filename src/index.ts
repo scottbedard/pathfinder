@@ -115,6 +115,7 @@ export function findPath(opts: Options) {
   return null
 }
 
+// heuristic helpers
 export function manhattan(current: Coord, next: Coord) {
   return Math.abs(current.col - next.col) + Math.abs(current.row - next.row)
 }
@@ -124,3 +125,6 @@ export function euclidean(current: Coord, next: Coord) {
     Math.pow(current.col - next.col, 2) + Math.pow(current.row - next.row, 2)
   )
 }
+
+// version watermark
+export const version = 'x.y.z'
