@@ -5,7 +5,9 @@ export class Tile {
 
   hover: boolean = false
 
-  traversable: boolean = true
+  obstacle: boolean = false
+
+  solution: boolean = false
 
   x: number
 
@@ -21,31 +23,35 @@ export class Tile {
    */
   fill() {
     if (this.center) {
-      return '#f87171'
+      return 'red'
     }
 
-    if (this.hover && this.traversable) {
-      return '#3b82f6'
+    if (this.obstacle) {
+      return '#1e293b'
     }
 
-    if (this.traversable) {
-      return '#cbd5e1'
+    if (this.hover) {
+      return 'blue'
     }
 
-    return '#1e293b'
+    if (this.solution) {
+      return 'pink'
+    }
+
+    return 'green'
   }
 
   /**
    * Generate a matrix of tiles
    */
-  static matrix(cols: number, rows: number): Tile[][] {
+  static matrix({ rows, cols }: { rows: number, cols: number }): Tile[][] {
     const matrix: Tile[][] = []
 
-    for (let x = 0; x < cols; x++) {
+    for (let i = 0; i < rows; i++) {
       matrix.push([])
 
-      for (let y = 0; y < rows; y++) {
-        matrix[x].push(new Tile(x, y))
+      for (let j = 0; j < cols; j++) {
+        matrix[i].push(new Tile(j, i))
       }
     }
 
@@ -62,8 +68,8 @@ export class Tile {
       return
     }
   
-    const width = matrix.length
-    const height = matrix[0].length
+    const height = matrix.length
+    const width = matrix[0].length
   
     const maze = new labyrinthos.TileMap({ height, width })
 
@@ -71,30 +77,21 @@ export class Tile {
   
     labyrinthos.mazes.GrowingTree(maze, {})
 
-    maze.data.forEach((value: number, i: number) => {
-      const x = i % width
-      const y = Math.floor(i / width)
-      matrix[x][y].traversable = value === 1
-    })
+    for (let i = 0; i < maze.data.length; i++) {
+      const row = Math.floor(i / width)
+      const col = i % width
+      matrix[row][col].obstacle = maze.data[i] === 0
+    }
 
-    // open and highlight the center
-    const [centerX, centerY] = [Math.floor(width / 2), Math.floor(height / 2)]
+    // highlight the center
+    const centerCol = Math.floor(width / 2)
+    const centerRow = Math.floor(height / 2)
 
-    if (centerX < 1 || centerY < 1) {
+    if (centerCol < 1 || centerRow < 1) {
       return
     }
 
-    matrix[centerX - 1][centerY - 1].traversable = true
-    matrix[centerX][centerY - 1].traversable = true
-    matrix[centerX + 1][centerY - 1].traversable = true
-
-    matrix[centerX - 1][centerY].traversable = true
-    matrix[centerX][centerY].center = true
-    matrix[centerX][centerY].traversable = true
-    matrix[centerX + 1][centerY].traversable = true
-
-    matrix[centerX - 1][centerY + 1].traversable = true
-    matrix[centerX][centerY + 1].traversable = true
-    matrix[centerX + 1][centerY + 1].traversable = true
+    matrix[centerRow][centerCol].center = true
+    matrix[centerRow][centerCol].obstacle = false
   }
 }

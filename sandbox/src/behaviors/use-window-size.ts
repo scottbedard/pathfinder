@@ -1,11 +1,16 @@
 import { createSignal } from 'solid-js'
 import { useEventListener } from './use-event-listener'
-import { Vec } from '@/types'
 
 export function useWindowSize() {
-  const signal = createSignal<Vec<2>>([window.innerWidth, window.innerHeight])
+  const signal = createSignal<{ width: number, height: number }>({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  })
 
-  useEventListener(window, 'resize', () => signal[1]([window.innerWidth, window.innerHeight]))
+  useEventListener(window, 'resize', () => signal[1]({
+    height: window.innerHeight,
+    width: window.innerWidth,
+  }))
 
   return signal
 }

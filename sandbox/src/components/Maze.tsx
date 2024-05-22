@@ -6,7 +6,7 @@ import { Vec } from '@/types'
 type Props = {
   grid: Tile[][]
   onMouseMove: (evt: MouseEvent) => void
-  screen: Vec<2>
+  screen: { height: number, width: number }
 }
 
 let canvas: HTMLCanvasElement
@@ -19,23 +19,18 @@ export function Maze(props: Props) {
       return
     }
   
-    const stroke = -1
+    const stroke = 1
 
-    const [width, height]: Vec<2> = [
-      props.screen[0] / props.grid.length,
-      props.screen[1] / props.grid[0].length,
-    ]
+    const height = props.screen.height / props.grid.length
+    const width = props.screen.width / props.grid[0].length
 
-    ctx.clearRect(0, 0, props.screen[0], props.screen[1])
+    ctx.clearRect(0, 0, props.screen.width, props.screen.height)
 
-    for (let col = 0; col < props.grid.length; col++) {
-      for (let row = 0; row < props.grid[col].length; row++) {
-        const tile = props.grid[col][row]
-        const x = col * width
-        const y = row * height
+    for (let row = 0; row < props.grid.length; row++) {
+      for (let col = 0; col < props.grid[row].length; col++) {
         ctx.beginPath()
-        ctx.rect(x, y, width - stroke, height - stroke)
-        ctx.fillStyle = tile.fill()
+        ctx.rect(col * width, row * height, width - stroke, height - stroke)
+        ctx.fillStyle = props.grid[row][col].fill()
         ctx.fill()
       }
     }
@@ -55,9 +50,9 @@ export function Maze(props: Props) {
 
   return <canvas
     class="h-screen w-screen"
-    height={props.screen[1]}
+    height={props.screen.height}
     onMouseMove={props.onMouseMove}
     ref={canvas}
-    width={props.screen[0]}
+    width={props.screen.width}
   />
 }

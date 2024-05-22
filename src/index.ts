@@ -24,13 +24,13 @@ export function findPath(opts: Options) {
   const heuristic = opts.heuristic || (() => 0)
 
   // create a matrix of cells from input data
-  const matrix: Cell[][] = opts.data.map((cols, row) =>
-    cols.map((obstructed, col) => ({
-      col,
+  const matrix: Cell[][] = opts.data.map((_row, rowIndex) =>
+    _row.map((obstructed, colIndex) => ({
+      col: colIndex,
       g: Infinity,
       h: 0, // heuristic({ row, col }),
       parent: null,
-      row,
+      row: rowIndex,
       obstructed: !!obstructed,
     })
   ))
