@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { findPath } from '../src/index'
+import { euclidean, findPath, manhattan } from '../src/index'
 
 describe('findPath', () => {
   it('dijkstra (no heuristic)', () => {
@@ -61,5 +61,15 @@ describe('findPath', () => {
     })
 
     expect(output).toBeNull()
+  })
+
+  it('manhattan distance', () => {
+    const output = manhattan({ row: 0, col: 0 }, { row: 2, col: 2 })
+    expect(output).toBe(4)
+  })
+
+  it('euclidean distance', () => {
+    const output = euclidean({ row: 0, col: 0 }, { row: 2, col: 2 })
+    expect(output).toBeCloseTo(2.83)
   })
 })
