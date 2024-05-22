@@ -1,14 +1,14 @@
 import { Controls, Maze } from '@/components'
 import { createEffect, createMemo, createSignal } from 'solid-js'
-import { findPath } from '@bedard/a-star'
+import { euclidean, findPath } from '@bedard/a-star'
 import { Tile } from '@/models'
 import { useWindowSize } from '@/behaviors'
 
 export default function App() {
-  const [cols, setCols] = createSignal(160)
+  const [cols, setCols] = createSignal(100)
   const [grid, setGrid] = createSignal<Tile[][]>([])
   const [mouse, setMouse] = createSignal<{ x: number, y: number }>({ x: -1, y: -1 })
-  const [rows, setRows] = createSignal(90)
+  const [rows, setRows] = createSignal(Math.round(cols() * (9 / 16)))
   const [screen] = useWindowSize()
 
   const update = (dimensions: { rows: number, cols: number }) => {
@@ -50,6 +50,14 @@ export default function App() {
           data: grid().map(row => row.map(t => t.obstacle)),
           from: { row, col },
           to: { row: center.y, col: center.x },
+          heuristic(current, next) {
+            // prevent diagonal movement
+            if (current.row !== next.row && current.col !== next.col) {
+              return Number.MAX_SAFE_INTEGER
+            }
+            
+            return euclidean(next, { row: center.y, col: center.x })
+          }
         })?.forEach((step: { row: number, col: number }) => {
           grid()[step.row][step.col].solution = true
         })

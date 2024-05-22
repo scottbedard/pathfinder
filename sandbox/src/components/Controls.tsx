@@ -16,12 +16,12 @@ export function Controls(props: Props) {
     props.onRowsChange(Math.max(rows, 3))
   }
 
-  return <div class="bg-white drop-shadow-lg grid gap-2 fixed m-2 px-3 py-2 rounded-lg text-sm w-40">
+  return <div class="bg-white grid gap-2 fixed p-3 rounded-br-lg shadow-2xl text-sm w-40">
     <div>
       <div>Size &bull; <span class="tabular-nums">{props.cols} &times; {props.rows}</span></div>
       <input
         class="w-full"
-        max="300"
+        max="160"
         min="1"
         onInput={onSizeInput}
         type="range" />

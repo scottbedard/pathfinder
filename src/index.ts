@@ -114,3 +114,13 @@ export function findPath(opts: Options) {
   // no path found
   return null
 }
+
+export function manhattan(current: Coord, next: Coord) {
+  return Math.abs(current.col - next.col) + Math.abs(current.row - next.row)
+}
+
+export function euclidean(current: Coord, next: Coord) {
+  return Math.sqrt(
+    Math.pow(current.col - next.col, 2) + Math.pow(current.row - next.row, 2)
+  )
+}
