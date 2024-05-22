@@ -21,7 +21,7 @@ export function Controls(props: Props) {
       <div>Size &bull; <span class="tabular-nums">{props.cols} &times; {props.rows}</span></div>
       <input
         class="w-full"
-        max="160"
+        max="320"
         min="1"
         onInput={onSizeInput}
         type="range" />
