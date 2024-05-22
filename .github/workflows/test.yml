@@ -1,4 +1,4 @@
-name: CI
+name: Test
 
 on: [push, pull_request]
 
@@ -55,3 +55,8 @@ jobs:
 
       - name: Vitest
         run: pnpm test -- --run --coverage
+
+      - name: Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
