@@ -47,7 +47,7 @@ findPath({
   data,
   from,
   to,
-  heuristic: (current, next) => euclidean(next, to), // <- give steps toward the target higher priority
+  heuristic: (current, next) => euclidean(next, to), // <- prefer steps towards the target
 })
 ```
 
